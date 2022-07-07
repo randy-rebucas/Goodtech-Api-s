@@ -1,4 +1,4 @@
-const axios = require('axios').default;
+const NextBankClient = require('../utils/NextBank');
 
 /**
  * 
@@ -6,14 +6,7 @@ const axios = require('axios').default;
  */
 exports.getCode = async (req, res, next) => {
     try {
-        const response = await axios({
-            baseURL: process.env.NEXTBANK_ENDPOINT,
-            url: '/api/v2/dictionaries',
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + req.authentication
-            },
+        const response = await NextBankClient.get('/api/v2/dictionaries', {
             params: {
                 code: req.query.code
             }

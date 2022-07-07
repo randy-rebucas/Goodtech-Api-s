@@ -1,19 +1,11 @@
-const axios = require('axios').default;
+const NextBankClient = require('../utils/NextBank');
 
 exports.getAccessToken = async(req, res, next) => {
     try {
-        const buf = Buffer.from(process.env.NEXTBANK_USER + ":" + process.env.NEXTBANK_PASSWORD);
-        const encodedData = buf.toString('base64');
 
-        const response = await axios({
-            url: process.env.NEXTBANK_ENDPOINT + '/api/v2/auth-tokens',
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': 'Basic ' + encodedData
-            },
+        const response = await NextBankClient.post('/api/v2/auth-tokens', {
             data: 'username=' + process.env.NEXTBANK_USER + '&password=' + process.env.NEXTBANK_PASSWORD
-        }); 
+        });
 
         res.status(200).json({
             data: response.data

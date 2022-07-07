@@ -1,15 +1,9 @@
-const axios = require('axios').default;
+const NextBankClient = require('../utils/NextBank');
 
 exports.productsOperations = async (req, res, next) => {
     try {
-        const response = await axios({
-            baseURL: process.env.NEXTBANK_ENDPOINT,
-            url: '/api/v2/products/operations',
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + req.authentication
-            },
+
+        const response = await NextBankClient.get('/api/v2/products/operations', {
             params: {
                 productIds: req.query.productIds, // Array of integers
                 dateFrom: req.query.dateFrom, // 2020-01-01

@@ -1,4 +1,4 @@
-const axios = require('axios').default;
+const NextBankClient = require('../utils/NextBank');
 
 /**
  * 
@@ -6,15 +6,8 @@ const axios = require('axios').default;
  */
 exports.payLoanByTransfer = async (req, res, next) => {
     try {
-        const response = await axios({
-            baseURL: process.env.NEXTBANK_ENDPOINT,
-            url: '/api/v2/command/PayLoanByTransfer',
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + req.authentication
-            },
-            data: JSON.stringify(req.body, null, 2)
+        const response = await NextBankClient.post('/api/v2/command/PayLoanByTransfer', {
+            data: JSON.stringify(customerData)
         });
 
         res.status(200).json({
@@ -33,15 +26,8 @@ exports.payLoanByTransfer = async (req, res, next) => {
  */
 exports.productsLoanTypes = async (req, res, next) => {
     try {
-        const response = await axios({
-            baseURL: process.env.NEXTBANK_ENDPOINT,
-            url: '/api/v2/products/loans/types',
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + req.authentication
-            }
-        });
+
+        const response = await NextBankClient.get('/api/v2/products/loans/types');
 
         res.status(200).json({
             data: response.data
@@ -59,15 +45,9 @@ exports.productsLoanTypes = async (req, res, next) => {
  */
 exports.createLoan = async (req, res, next) => {
     try {
-        const response = await axios({
-            baseURL: process.env.NEXTBANK_ENDPOINT,
-            url: '/api/v2/command/CreateLoan',
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + req.authentication
-            },
-            data: JSON.stringify(req.body, null, 2)
+
+        const response = await NextBankClient.post('/api/v2/command/CreateLoan', {
+            data: JSON.stringify(customerData)
         });
 
         res.status(200).json({
@@ -87,14 +67,8 @@ exports.createLoan = async (req, res, next) => {
  */
 exports.productsLoanSearch = async (req, res, next) => {
     try {
-        const response = await axios({
-            baseURL: process.env.NEXTBANK_ENDPOINT,
-            url: '/api/v2/products/loans/search',
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + req.authentication
-            },
+        
+        const response = await NextBankClient.get('/api/v2/products/loans/search', {
             params: {
                 productNumber: req.query.productNumber
             }
@@ -117,15 +91,8 @@ exports.productsLoanSearch = async (req, res, next) => {
  */
  exports.getProductsLoan = async (req, res, next) => {
     try {
-        const response = await axios({
-            baseURL: process.env.NEXTBANK_ENDPOINT,
-            url: '/api/v2/products/loans/' + req.params.id,
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + req.authentication
-            }
-        });
+
+        const response = await NextBankClient.get(`/api/v2/products/loans/${req.params.id}`);
 
         res.status(200).json({
             data: response.data

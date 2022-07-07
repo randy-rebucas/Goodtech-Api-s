@@ -1,14 +1,14 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var env = require('dotenv').config();
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var helmet = require('helmet');
 var cors = require('cors');
+var axios = require('axios');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var tokenRouter = require('./routes/token');
 var dictionaryRouter = require('./routes/dictionary');
 var customerRouter = require('./routes/customer');
@@ -17,7 +17,6 @@ var loanRouter = require('./routes/loan');
 var productRouter = require('./routes/product');
 
 var app = express();
-
 /**
  * CORS
  */
@@ -45,8 +44,6 @@ app.use(express.static(path.join(__dirname, 'uploads')));
 
 app.use(helmet());
 
-app.use('/api/v2', indexRouter);
-app.use('/api/v2/users', usersRouter);
 app.use('/api/v2/token', tokenRouter);
 app.use('/api/v2/dictionary', dictionaryRouter);
 app.use('/api/v2/casa', casaRouter);
