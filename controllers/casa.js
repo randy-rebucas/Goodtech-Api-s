@@ -76,9 +76,14 @@ exports.productsAccountsDetails = async (req, res, next) => {
  */
 exports.productsCasaTypes = async (req, res, next) => {
     try {
-        const response = await NextBankClient({
+        const response = await axios({
+            baseURL: process.env.NEXTBANK_ENDPOINT,
             url: '/api/v2/products/casa/types',
-            method: 'get'
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + req.authentication
+            }
         });
 
         res.status(200).json({
