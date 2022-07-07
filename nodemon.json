@@ -1,0 +1,7 @@
+{
+    "env": {
+        "NEXTBANK_ENDPOINT": "https://qa.rbsilay.nextbank.cloud",
+        "NEXTBANK_USER": "rdijamco",
+        "NEXTBANK_PASSWORD": "RBStest4"
+    }
+}
