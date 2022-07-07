@@ -5,7 +5,7 @@ const router = express.Router();
  * load middleware
  */
  const auth = require('../middlewares/nextbankAuth');
- const enstance = require('../middlewares/nextbankAuth');
+ 
 /**
  * load controller
  */
@@ -15,7 +15,7 @@ router.post('/createAccount', auth, controller.createAccount);
 
 router.get('/productsAccountsDetails', auth, controller.productsAccountsDetails);
 
-router.get('/productsCasaTypes', enstance, controller.productsCasaTypes);
+router.get('/productsCasaTypes', auth, controller.productsCasaTypes);
 
 router.post('/accountTaggedCreditMemo', auth, controller.accountTaggedCreditMemo);
 
